@@ -24,42 +24,20 @@
   <br>
   <div class="flex">
     <button id="ctrlw-button">Close tab</button>
+    <button id="ctrlShiftTab-button">Prev tab</button>
+    <button id="ctrlTab-button">Next tab</button>
+    <button id="altTab-button">Alt tab</button>
+  </div>
+  <br>
+  <div class="flex">
     <button id="f-button">F</button>
+    <button id="j-button">J</button>
+    <button id="k-button">K</button>
+    <button id="l-button">L</button>
   </div>
 
-  <script>
-    var volumeInput = document.getElementById('volume');
-    var volumeButton = document.getElementById('volume-button');
-    var websiteInput = document.getElementById('website');
-    var websiteButton = document.getElementById('website-button');
-    var ctrlwButton = document.getElementById('ctrlw-button');
-    var twitchButton = document.getElementById('twitch-button');
-    var fButton = document.getElementById('f-button');
+  <script src="script.js"></script>
 
-    volumeButton.addEventListener('click', () => {
-      const vol = volumeInput.value;
-      fetch(`/volume/${vol}`);
-    });
-
-    websiteButton.addEventListener('click', () => {
-      const url = websiteInput.value;
-      fetch(`/website?url=${url}`);
-    });
-
-    ctrlwButton.addEventListener('click', () => {
-      fetch('/sendkeys?keys=^w');
-    });
-
-    fButton.addEventListener('click', () => {
-      fetch('/sendkeys?keys=f');
-    });
-
-    twitchButton.addEventListener('click', () => {
-      websiteInput.value = 'https://twitch.tv/';
-      websiteInput.focus();
-    });
-
-  </script>
   <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
   <script type="module" src="index.js"></script> -->

@@ -1,3 +1,3 @@
 # Remote dashboard
 
-An UI For controlling various things remotely
+UI For controlling various things remotely

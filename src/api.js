@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const loudness = require('loudness');
+const sendkeys = require('sendkeys');
 const { exec } = require('child_process');
 const { logger } = require('./middleware/loggingMiddleware.js');
 const { isValidUrl } = require('./utils/validation.js');
@@ -29,6 +30,12 @@ app.get('/website', (req, res) => {
     return;
   }
   res.sendStatus(400);
+});
+
+app.get('/sendkeys', async (req, res) => {
+  const { keys } = req.query;
+  await sendkeys(keys);
+  res.sendStatus(200);
 });
 
 const PORT = 3000;

@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "loudness": "^0.4.1"
+    "loudness": "^0.4.1",
+    "sendkeys": "^1.1.1"
   }
 }

@@ -1,0 +1,13 @@
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input {
+  border: 1px solid #c8c8c8;
+  border-radius: 3px;
+  padding: 5px 10px;
+  height: 24px;
+  width: 120px;
+}

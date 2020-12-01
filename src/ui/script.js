@@ -8,19 +8,26 @@ const ctrlwButton = document.getElementById('ctrlw-button');
 const prevTabButton = document.getElementById('ctrlShiftTab-button');
 const nextTabButton = document.getElementById('ctrlTab-button');
 const twitchButton = document.getElementById('twitch-button');
+const httpsButton = document.getElementById('https-button');
 const fButton = document.getElementById('f-button');
 const altTabButton = document.getElementById('altTab-button');
 const keysInput = document.getElementById('keys');
 const keysButton = document.getElementById('keys-button');
 
+window.onload = async () => {
+  const volume = await (await fetch('/volume')).text();
+  console.log(volume);
+  volumeInput.value = volume;
+}
+
 volumeButton.addEventListener('click', () => {
   const vol = volumeInput.value;
-  fetch(`/volume/${vol}`);
+  fetch(`/volume/${vol}`, { method: 'POST' });
 });
 
 websiteButton.addEventListener('click', () => {
   const url = websiteInput.value;
-  fetch(`/website?url=${url}`);
+  fetch(`/website?url=${url}`, { method: 'POST' });
 });
 
 ctrlwButton.addEventListener('click', () => {
@@ -51,5 +58,9 @@ keysButton.addEventListener('click', () => {
 
 twitchButton.addEventListener('click', () => {
   websiteInput.value = 'https://twitch.tv/';
+  websiteInput.focus();
+});
+httpsButton.addEventListener('click', () => {
+  websiteInput.value = 'https://';
   websiteInput.focus();
 });

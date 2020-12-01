@@ -15,7 +15,12 @@ app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname + '/ui' });
 });
 
-app.get('/volume/:v', async (req, res) => {
+app.get('/volume', async (req, res) => {
+  const volume = await loudness.getVolume();
+  res.send(volume.toString());
+});
+
+app.post('/volume/:v', async (req, res) => {
   const { v } = req.params;
   const vol = Number(v);
   if (vol <= 100 && vol >= 0) {
@@ -24,7 +29,7 @@ app.get('/volume/:v', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/website', (req, res) => {
+app.post('/website', (req, res) => {
   const { url } = req.query;
   if (isValidUrl(url)) {
     exec(`start ${url}`);

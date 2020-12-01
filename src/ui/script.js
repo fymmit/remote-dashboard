@@ -1,12 +1,4 @@
-const sendKeys = (keys) => {
-  fetch('/sendkeys', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ keys })
-  });
-}
+import { sendKeys } from './helpers/fetch.js';
 
 const volumeInput = document.getElementById('volume');
 const volumeButton = document.getElementById('volume-button');
@@ -18,6 +10,8 @@ const nextTabButton = document.getElementById('ctrlTab-button');
 const twitchButton = document.getElementById('twitch-button');
 const fButton = document.getElementById('f-button');
 const altTabButton = document.getElementById('altTab-button');
+const keysInput = document.getElementById('keys');
+const keysButton = document.getElementById('keys-button');
 
 volumeButton.addEventListener('click', () => {
   const vol = volumeInput.value;
@@ -51,9 +45,9 @@ altTabButton.addEventListener('click', () => {
   button.addEventListener('click', () => sendKeys(x));
 });
 
-// fButton.addEventListener('click', () => {
-//   sendKeys('f');
-// });
+keysButton.addEventListener('click', () => {
+  sendKeys(keysInput.value);
+});
 
 twitchButton.addEventListener('click', () => {
   websiteInput.value = 'https://twitch.tv/';

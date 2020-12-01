@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 5px;
 }
 
 .input {
@@ -10,4 +11,5 @@
   padding: 5px 10px;
   height: 24px;
   width: 120px;
+  margin: 5px;
 }

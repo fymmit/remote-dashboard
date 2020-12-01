@@ -10,33 +10,37 @@
   <div class="flex">
     <label for="volume">Volume: </label>
     <input class="input" type="number" name="volume" id="volume">
-    <button id="volume-button">Submit</button>
+    <button class="input" id="volume-button">Submit</button>
   </div>
-  <br>
+  <hr>
   <div class="flex">
     <label for="website">Website: </label>
     <input class="input" type="text" name="website" id="website" value="https://">
-    <button id="website-button">Submit</button>
+    <button class="input" id="website-button">Submit</button>
   </div>
   <div class="flex">
-    <button id="twitch-button">Twitch</button>
+    <button class="input" id="twitch-button">Twitch</button>
   </div>
-  <br>
+  <hr>
   <div class="flex">
-    <button id="ctrlw-button">Close tab</button>
-    <button id="ctrlShiftTab-button">Prev tab</button>
-    <button id="ctrlTab-button">Next tab</button>
-    <button id="altTab-button">Alt tab</button>
+    <button class="input" id="ctrlw-button">Close tab</button>
+    <button class="input" id="ctrlShiftTab-button">Prev tab</button>
+    <button class="input" id="ctrlTab-button">Next tab</button>
+    <button class="input" id="altTab-button">Alt tab</button>
   </div>
-  <br>
   <div class="flex">
-    <button id="f-button">F</button>
-    <button id="j-button">J</button>
-    <button id="k-button">K</button>
-    <button id="l-button">L</button>
+    <button class="input" id="f-button">F</button>
+    <button class="input" id="j-button">J</button>
+    <button class="input" id="k-button">K</button>
+    <button class="input" id="l-button">L</button>
+  </div>
+  <div class="flex">
+    <label for="keys">Custom keys: </label>
+    <input class="input" type="text" name="keys" id="keys">
+    <button class="input" id="keys-button">Submit</button>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 
   <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>

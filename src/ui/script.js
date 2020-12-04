@@ -16,7 +16,6 @@ const keysButton = document.getElementById('keys-button');
 
 window.onload = async () => {
   const volume = await (await fetch('/volume')).text();
-  console.log(volume);
   volumeInput.value = volume;
 }
 
@@ -47,7 +46,6 @@ altTabButton.addEventListener('click', () => {
 });
 
 'fjkl'.split('').forEach(x => {
-  console.log(x);
   const button = document.getElementById(`${x}-button`);
   button.addEventListener('click', () => sendKeys(x));
 });

@@ -1,18 +1,25 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const loudness = require('loudness');
 const sendkeys = require('sendkeys');
 const { exec } = require('child_process');
-const { logger } = require('./middleware/loggingMiddleware.js');
-const { isValidUrl } = require('./utils/validation.js');
+const { logger } = require('./src/middleware/loggingMiddleware.js');
+const { isValidUrl } = require('./src/utils/validation.js');
+
+const { PORT } = process.env;
 
 app.use(bodyParser.json());
 app.use(logger);
-app.use(express.static('ui'));
+app.use(cors());
+// app.use(express.static('src/ui'));
+app.use(express.static('front/build'));
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: __dirname + '/ui' });
+  // res.sendFile('index.html', { root: __dirname + '/src/ui' });
+  res.sendFile('index.html', { root: __dirname + '/front/build' });
 });
 
 app.get('/volume', async (req, res) => {
@@ -29,10 +36,12 @@ app.post('/volume/:v', async (req, res) => {
   res.sendStatus(200);
 });
 
-app.post('/website', (req, res) => {
+app.post('/website', async (req, res) => {
   const { url } = req.query;
-  if (isValidUrl(url)) {
-    exec(`start ${url}`);
+  // if (isValidUrl(url))
+  {
+    // exec(`start ${url}`);
+    await sendkeys(`^l${url}~`);
     res.sendStatus(200);
     return;
   }
@@ -45,7 +54,6 @@ app.post('/sendkeys', async (req, res) => {
   res.sendStatus(200);
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
+app.listen(PORT || 9000, () => {
   console.log('Listening on port', PORT);
 });

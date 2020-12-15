@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { Switch, Route } from 'react-router';
+import { ConnectedRouter } from 'connected-react-router';
+import { Provider } from 'react-redux';
+import { OidcProvider, processSilentRenew } from 'redux-oidc';
+import { createBrowserHistory } from 'history';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Callback from './components/Callback';
+import Login from './components/Login';
+import userManager from './utils/userManager';
+import configureStore from './store';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const history = createBrowserHistory();
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const store = configureStore(history);
+
+if (window.location.pathname === '/silent_renew') {
+  processSilentRenew();
+} else {
+  ReactDOM.render(
+    <Provider store={store}>
+      <OidcProvider store={store} userManager={userManager}>
+        <ConnectedRouter history={history}>
+          <Switch>
+            <Route exact path="/" component={App} />
+            <Route path="/login" component={Login} />
+            <Route path="/callback" component={Callback} />
+            <Route path="/">
+              <div>You are lost.</div>
+            </Route>
+          </Switch>
+        </ConnectedRouter>
+      </OidcProvider>
+    </Provider>,
+    document.getElementById('root')
+  );
+}

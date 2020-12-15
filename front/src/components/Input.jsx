@@ -1,8 +1,11 @@
-import { useState } from 'react';
-
-const Input = ({ label = '', name, func }) => {
-  const [value, setValue] = useState('');
-
+const Input = ({
+  label = '',
+  name,
+  func,
+  value,
+  setValue,
+  type = 'text',
+}) => {
   const labelElement = label.length > 0
     ? <label htmlFor={`${name}-input`}>{label}</label>
     : <></>
@@ -12,7 +15,7 @@ const Input = ({ label = '', name, func }) => {
       {labelElement}
       <input
         className="input"
-        type="text"
+        type={type}
         name={name}
         id={`${name}-input`}
         value={value}
@@ -20,7 +23,7 @@ const Input = ({ label = '', name, func }) => {
       />
       <button
         className="input"
-        onClick={() => func(value)}
+        onClick={func}
       >
         Submit
       </button>

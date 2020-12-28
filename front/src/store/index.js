@@ -3,6 +3,8 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { loadUser } from 'redux-oidc';
 import { reducer as oidcReducer } from 'redux-oidc';
 import { reducer as paskaReducer } from './paska';
+import { reducer as twitchReducer } from './twitch';
+import ReduxThunk from 'redux-thunk';
 import userManager from '../utils/userManager';
 
 const configureStore = (history) => {
@@ -12,6 +14,7 @@ const configureStore = (history) => {
       router: connectRouter(history),
       oidc: oidcReducer,
       paska: paskaReducer,
+      twitch: twitchReducer,
     }
   );
   
@@ -26,7 +29,7 @@ const configureStore = (history) => {
   const initialState = {};
   
   const createStoreWithMiddleware = compose(
-    applyMiddleware(loggerMiddleware, routerMiddleware(history)),
+    applyMiddleware(loggerMiddleware, routerMiddleware(history), ReduxThunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )(createStore);
   

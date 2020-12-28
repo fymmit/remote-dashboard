@@ -6,9 +6,11 @@ import Input from './components/Input';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import userManager from './utils/userManager';
+import { bindActionCreators } from 'redux';
+import { actionCreators as twitchActions } from './store/twitch';
 const { REACT_APP_SITEURL: siteUrl } = process.env;
 
-function App({ user }) {
+function App({ user, follows, fetchFollows, fetchOnlineStreams }) {
   const [volume, setVolume] = useState(0);
   const [website, setWebsite] = useState('');
   const [customKeys, setCustomKeys] = useState('');
@@ -77,7 +79,11 @@ function App({ user }) {
         {user === null ? (
           <button onClick={() => history.push('/login')}>Log in</button>
         ) : (
-          <button onClick={() => userManager.signoutRedirect()}>Log out</button>
+          <>
+            <span>Logged in as {user.profile.preferred_username}</span>
+            <button onClick={() => history.push('/twitch')}>Twitch dashboard</button>
+            <button onClick={() => userManager.signoutRedirect()}>Log out</button>
+          </>
         )}
       </div>
     </div>
@@ -86,6 +92,11 @@ function App({ user }) {
 
 const mapState = state => ({
   user: state.oidc.user,
+  follows: state.twitch.follows,
 });
 
-export default connect(mapState)(App);
+const mapActions = dispatch => bindActionCreators({
+  ...twitchActions
+}, dispatch);
+
+export default connect(mapState, mapActions)(App);

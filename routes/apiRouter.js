@@ -21,7 +21,9 @@ router.post('/website', async (req, res) => {
   // if (isValidUrl(url))
   {
     // exec(`start ${url}`);
-    await sendkeys(`^l${url}~`);
+    await sendkeys('^l');
+    await sendkeys(url);
+    await sendkeys('{ENTER}');
     res.sendStatus(200);
     return;
   }

@@ -3,6 +3,9 @@ const router = express.Router();
 const loudness = require('loudness');
 const sendkeys = require('sendkeys');
 const { exec } = require('child_process');
+const fs = require('fs');
+const screenshot = require('screenshot-desktop');
+const robot = require('robotjs');
 
 router.get('/volume', async (req, res) => {
   const volume = await loudness.getVolume();
@@ -32,6 +35,24 @@ router.post('/website', async (req, res) => {
 router.post('/sendkeys', async (req, res) => {
   const { keys } = req.body;
   await sendkeys(keys);
+  res.sendStatus(200);
+});
+router.get('/screenshot', async (req, res) => {
+  const ss = await screenshot();
+  const timeStamp = Date.now().toString();
+  const filePath = `public/${timeStamp}.jpg`;
+  fs.writeFile(filePath, ss, (err) => {
+    if (!err) {
+      res.send(timeStamp + '.jpg');
+    } else {
+      res.sendStatus(500);
+    }
+  });
+});
+router.post('/click', async (req, res) => {
+  const { x, y } = req.body;
+  robot.moveMouse(x, y);
+  robot.mouseClick();
   res.sendStatus(200);
 });
 

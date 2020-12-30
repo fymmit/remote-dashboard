@@ -12,6 +12,7 @@ import Login from './components/Login';
 import userManager from './utils/userManager';
 import configureStore from './store';
 import Twitch from './components/Twitch';
+import Screenshot from './components/Screenshot';
 
 const history = createBrowserHistory();
 
@@ -29,6 +30,7 @@ if (window.location.pathname === '/silent_renew') {
             <Route path="/login" component={Login} />
             <Route path="/twitch" component={Twitch} />
             <Route path="/callback" component={Callback} />
+            <Route path="/screenshot/:fileName" component={Screenshot} />
             <Route path="/">
               <div>You are lost.</div>
             </Route>

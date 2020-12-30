@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import userManager from './utils/userManager';
 import { bindActionCreators } from 'redux';
 import { actionCreators as twitchActions } from './store/twitch';
-const { REACT_APP_SITEURL: siteUrl } = process.env;
+const { REACT_APP_APIURL: apiUrl } = process.env;
 
 function App({ user, follows, fetchFollows, fetchOnlineStreams }) {
   const [volume, setVolume] = useState(0);
@@ -18,7 +18,7 @@ function App({ user, follows, fetchFollows, fetchOnlineStreams }) {
 
   useEffect(() => {
     (async () => {
-      const response = await fetch(`${siteUrl}/volume`);
+      const response = await fetch(`${apiUrl}/volume`);
       const vol = await response.text();
       setVolume(vol);
     })();
@@ -33,7 +33,7 @@ function App({ user, follows, fetchFollows, fetchOnlineStreams }) {
           value={volume}
           setValue={setVolume}
           type="number"
-          func={() => fetch(`${siteUrl}/volume/${volume}`, { method: 'POST' })}
+          func={() => fetch(`${apiUrl}/volume/${volume}`, { method: 'POST' })}
         />
       </div>
       <hr />
@@ -43,7 +43,7 @@ function App({ user, follows, fetchFollows, fetchOnlineStreams }) {
           label="Website"
           value={website}
           setValue={setWebsite}
-          func={() => fetch(`${siteUrl}/website?url=${website}`, { method: 'POST' })}
+          func={() => fetch(`${apiUrl}/website?url=${website}`, { method: 'POST' })}
         />
       </div>
       <div className="row">
@@ -85,6 +85,13 @@ function App({ user, follows, fetchFollows, fetchOnlineStreams }) {
             <button onClick={() => userManager.signoutRedirect()}>Log out</button>
           </>
         )}
+        <button onClick={async () => {
+          const res = await fetch(`${apiUrl}/screenshot`);
+          if (res.ok) {
+            const fileName = await res.text();
+            history.push(`/screenshot/${fileName}`);
+          }
+        }}>Click</button>
       </div>
     </div>
   );

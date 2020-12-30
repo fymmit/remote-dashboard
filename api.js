@@ -14,6 +14,7 @@ app.use(logger);
 app.use(cors());
 // app.use(express.static('src/ui'));
 app.use(express.static('front/build'));
+app.use(express.static('public'));
 app.use('/api', apiRouter);
 
 app.get('*', (_, res) => {

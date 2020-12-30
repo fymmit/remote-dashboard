@@ -28,9 +28,11 @@ const configureStore = (history) => {
   
   const initialState = {};
   
-  const createStoreWithMiddleware = compose(
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+  const createStoreWithMiddleware = composeEnhancers(
     applyMiddleware(loggerMiddleware, routerMiddleware(history), ReduxThunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )(createStore);
   
   const store = createStoreWithMiddleware(reducer, initialState);
